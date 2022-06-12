@@ -96,21 +96,19 @@ require "byebug"
 
 
 
-def bsearch(array, target) #3
+def bsearch(array, target)
   return nil if array.length == 0
-  return 0 if target == array[0]
- 
+  mid = array.length / 2
+  pivot = array[mid]
+  return mid if target == pivot
 
-  mid_idx = array.length/ 2
-  debugger
-  pivot = array[mid_idx] 
   if pivot == target
-    return mid_idx
-  elsif pivot < target #mid_idx = 2
-    debugger
-    mid_idx + bsearch(array[mid_idx..-1], target)  #idx 2, idx 3
-  elsif
-    bsearch(array[0...mid_idx], target)
+    return mid
+  elsif pivot < target
+    right_search = bsearch(array[mid + 1..-1], target)
+    mid + 1 + right_search unless right_search == nil
+  elsif pivot > target
+    bsearch(array[0...mid], target)
   end
 end
 
@@ -119,13 +117,13 @@ end
 # display mid_idx
 # display pivot
 
-# p bsearch([1, 2, 3], 1) # => 0
+p bsearch([1, 2, 3], 1) # => 0
 p bsearch([2, 3, 4, 5], 3) # => 1
-# p bsearch([2, 4, 6, 8, 10], 6) # => 2
-# p bsearch([1, 3, 4, 5, 9], 5) # => 3
-# p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
-# p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
-# p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+p bsearch([2, 4, 6, 8, 10], 6) # => 2
+p bsearch([1, 3, 4, 5, 9], 5) # => 3
+p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
 
 def merge_sort
 end
